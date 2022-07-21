@@ -1,16 +1,16 @@
 <?php
 /**
 	* This project is some useful functions that i developed in my programmer's life
-  * en-US: Useful functions referenced from string
+  	* en-US: Useful functions referenced from string
 	* pt-BR: Funções úteis referentes a string
 	*
 	* Está atualizado para
 	*    PHP 8.1
 	*
 	* @package 		sysborg
-	* @name 		  sysborg\strUtil
+	* @name 		sysborg\strUtil
 	* @version 		1.0.0
-	* @copyright 	2021-2030
+	* @copyright 		2021-2030
 	* @author 		Anderson M Arruda < andmarruda@gmail.com >
 **/
 
