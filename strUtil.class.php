@@ -79,7 +79,7 @@ class strUtil{
         if($num != count($binds))
             throw new \Exception('Number of variables doesn\'t match number of parameters');
             
-        $bindable = str_replace('?', '%s', $bindable);
+        $bindable = str_replace('?', '\'%s\'', $bindable);
         return sprintf($bindable, ...$binds);
     }
 
