@@ -1,16 +1,16 @@
 <?php
 /**
 	* This project is some useful functions that i developed in my programmer's life
-  	* en-US: Useful functions referenced from string
+  * en-US: Useful functions referenced from string
 	* pt-BR: Funções úteis referentes a string
 	*
 	* Está atualizado para
 	*    PHP 8.1
 	*
 	* @package 		sysborg
-	* @name 		sysborg\strUtil
+	* @name 		  sysborg\strUtil
 	* @version 		1.0.0
-	* @copyright 		2021-2030
+	* @copyright 	2021-2030
 	* @author 		Anderson M Arruda < andmarruda@gmail.com >
 **/
 
@@ -81,6 +81,32 @@ class strUtil{
             
         $bindable = str_replace('?', '%s', $bindable);
         return sprintf($bindable, ...$binds);
+    }
+
+  /**
+   * description-en-US  Simulate bind into string putting all args as string | Good to debug bindable SQL with :variableName
+   * description-pt-BR  Simula o bind dentro duma string colocando todos os argumentos como string | Bom para debugar SQL com binds através de :nomeVariavel
+   * access             public
+   * version            1.0.0
+   * author             Anderson Arruda < andmarruda@gmail.com >
+   * param              string $bindable
+   * param              array $binds
+   * return             string
+   */
+    public static function strBind(string $bindable, array $binds) : string
+    {
+        $num = substr_count($bindable, ':');
+        if($num===0)
+            return $bindable;
+            
+        if($num != count($binds))
+            throw new \Exception('Number of variables doesn\'t match number of parameters');
+            
+        foreach($binds as $needle => $replace){
+            $bindable = preg_replace('/'. $needle. '(?![a-zA-Z0-9])/', '\''. $replace. '\'', $bindable);
+        }
+
+        return $bindable;
     }
 }
 ?>
