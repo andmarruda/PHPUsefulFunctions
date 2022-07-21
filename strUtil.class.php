@@ -59,6 +59,29 @@ class strUtil{
     preg_match('/^.*(?=@)/', $email, $emailMatch);
     return $emailMatch[0]; 
   }
-}
 
+  /**
+   * description-en-US  Simulate bind into string putting all args as string | Good to debug bindable SQL with ?
+   * description-pt-BR  Simula o bind dentro duma string colocando todos os argumentos como string | Bom para debugar SQL com binds através de ?
+   * access             public
+   * version            1.0.0
+   * author             Anderson Arruda < andmarruda@gmail.com >
+   * param              string $bindable
+   * param              mixed ...$binds
+   * return             string
+   */
+    public static function strBindNum(string $bindable, ...$binds) : string
+    {
+        $num = substr_count($bindable, '?');
+        if($num===0)
+            return $bindable;
+
+        for($i=0; $i<$num; $i++){
+            $pos = strpos($bindable, '?');
+            $bindable = substr($bindable, 0, $pos). '\''. $binds[$i]. '\''. substr($bindable, $pos+1, strlen($bindable));
+        }
+        
+        return $bindable;
+    }
+}
 ?>
