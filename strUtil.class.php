@@ -75,13 +75,12 @@ class strUtil{
         $num = substr_count($bindable, '?');
         if($num===0)
             return $bindable;
-
-        for($i=0; $i<$num; $i++){
-            $pos = strpos($bindable, '?');
-            $bindable = substr($bindable, 0, $pos). '\''. $binds[$i]. '\''. substr($bindable, $pos+1, strlen($bindable));
-        }
-        
-        return $bindable;
+            
+        if($num != count($binds))
+            throw new \Exception('Number of variables doesn\'t match number of parameters');
+            
+        $bindable = str_replace('?', '%s', $bindable);
+        return sprintf($bindable, ...$binds);
     }
 }
 ?>
